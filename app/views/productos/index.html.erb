@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Productos" %>
+
+<h1>Productos</h1>
+
+<h1>🍩 Nuestros Postres</h1>
+
+<div class="grid">
+<% @productos.each do |producto| %>
+  <div class="card">
+    <img src="<%= producto.imagen %>">
+    <h3><%= producto.nombre %></h3>
+    <p>$<%= producto.precio %></p>
+
+    <%= link_to "Ver", producto, class:"btn" %>
+  </div>
+<% end %>
+</div>
+</div>
+
+<%= link_to "New producto", new_producto_path %>

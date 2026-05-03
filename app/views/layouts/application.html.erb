@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dulce Delicia</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+
+  <style>
+    body {
+      margin:0;
+      font-family: 'Segoe UI', sans-serif;
+      background:#fff7f9;
+    }
+
+    header {
+      background:#ff6f91;
+      padding:15px 30px;
+      color:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    a {
+      text-decoration:none;
+    }
+
+    .btn {
+      background:#ff3b6b;
+      color:white;
+      padding:8px 12px;
+      border-radius:6px;
+    }
+
+    .container {
+      padding:20px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card {
+      background:white;
+      border-radius:12px;
+      padding:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      text-align:center;
+      transition:0.2s;
+    }
+
+    .card:hover {
+      transform:scale(1.03);
+    }
+
+    img {
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      border-radius:10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>🍰 Dulce Delicia</h2>
+  <div>
+    <%= link_to "Inicio", root_path, class:"btn" %>
+    <%= link_to "Nuevo", new_producto_path, class:"btn" %>
+  </div>
+</header>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+</body>
+</html>
