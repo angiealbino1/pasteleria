@@ -10,13 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_080646) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_07_035327) do
+  create_table "carritos", force: :cascade do |t|
+    t.integer "cantidad"
+    t.datetime "created_at", null: false
+    t.integer "producto_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "usuario_id"
+    t.index ["producto_id"], name: "index_carritos_on_producto_id"
+    t.index ["usuario_id"], name: "index_carritos_on_usuario_id"
+  end
+
+  create_table "pedido_items", force: :cascade do |t|
+    t.integer "cantidad"
+    t.datetime "created_at", null: false
+    t.integer "pedido_id", null: false
+    t.float "precio"
+    t.integer "producto_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pedido_id"], name: "index_pedido_items_on_pedido_id"
+    t.index ["producto_id"], name: "index_pedido_items_on_producto_id"
+  end
+
+  create_table "pedidos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "estado"
+    t.float "total"
+    t.datetime "updated_at", null: false
+    t.integer "usuario_id", null: false
+    t.index ["usuario_id"], name: "index_pedidos_on_usuario_id"
+  end
+
   create_table "productos", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "descripcion"
     t.string "imagen"
     t.string "nombre"
     t.decimal "precio"
+    t.integer "stock"
     t.datetime "updated_at", null: false
   end
+
+  create_table "usuarios", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "nombre"
+    t.string "password_digest"
+    t.string "rol"
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "carritos", "productos"
+  add_foreign_key "carritos", "usuarios"
+  add_foreign_key "pedido_items", "pedidos"
+  add_foreign_key "pedido_items", "productos"
+  add_foreign_key "pedidos", "usuarios"
 end

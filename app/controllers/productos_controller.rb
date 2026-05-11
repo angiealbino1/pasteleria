@@ -3,8 +3,12 @@ class ProductosController < ApplicationController
 
   # GET /productos or /productos.json
   def index
+  if params[:q].present?
+    @productos = Producto.where("nombre LIKE ?", "%#{params[:q]}%")
+  else
     @productos = Producto.all
   end
+end
 
   # GET /productos/1 or /productos/1.json
   def show
@@ -63,8 +67,7 @@ class ProductosController < ApplicationController
       @producto = Producto.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def producto_params
-      params.expect(producto: [ :nombre, :precio, :descripcion, :imagen ])
+  	params.require(:producto).permit(:nombre, :descripcion, :precio, :imagen, :stock)
     end
 end

@@ -1,0 +1,25 @@
+<h1>📦 Mis pedidos</h1>
+
+<div class="productos-grid">
+  <% @pedidos.each do |pedido| %>
+    <div class="producto-card">
+      <div class="producto-info">
+
+        <h3>Pedido #<%= pedido.id %></h3>
+
+        <p>
+          <strong>Total:</strong>
+          $<%= pedido.total %>
+        </p>
+
+        <p>
+          <strong>Estado:</strong>
+          <span class="estado">
+            <%= pedido.estado %>
+          </span>
+        </p>
+
+      </div>
+    </div>
+  <% end %>
+</div>

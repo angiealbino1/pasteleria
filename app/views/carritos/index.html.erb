@@ -1,0 +1,20 @@
+<h1>🛒 Tu carrito</h1>
+
+<% if @carritos.any? %>
+  <% @carritos.each do |item| %>
+    <div class="card">
+      <h3><%= item.producto.nombre %></h3>
+      <p>Precio: $<%= item.producto.precio %></p>
+      <p>Cantidad: <%= item.cantidad %></p>
+      <p class="price">Subtotal: $<%= item.producto.precio * item.cantidad %></p>
+
+      <%= button_to "Eliminar ❌", eliminar_carrito_path(item.id), method: :delete, class: "btn" %>
+    </div>
+  <% end %>
+
+  <h2>Total: $<%= @total %></h2>
+
+  <%= button_to "Comprar 💳", checkout_path, method: :post, class: "btn" %>
+<% else %>
+  <p>Tu carrito está vacío 🧺</p>
+<% end %>

@@ -1,0 +1,45 @@
+<h1> Panel Admin - Pedidos</h1>
+
+<div class="productos-grid">
+  <% @pedidos.each do |pedido| %>
+    <div class="producto-card">
+      <div class="producto-info">
+
+        <h3>Pedido #<%= pedido.id %></h3>
+
+        <p>
+          <strong>Cliente:</strong>
+          <%= pedido.usuario.nombre %>
+        </p>
+
+        <p>
+          <strong>Total:</strong>
+          $<%= pedido.total %>
+        </p>
+
+        <p>
+          <strong>Estado actual:</strong>
+          <span class="estado">
+            <%= pedido.estado %>
+          </span>
+        </p>
+
+        <%= form_with url: actualizar_pedido_path(pedido), method: :patch do %>
+          <select name="estado">
+            <option value="Pendiente">Pendiente</option>
+            <option value="En preparación">En preparación</option>
+            <option value="Listo">Listo</option>
+            <option value="En camino">En camino</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+
+          <br><br>
+
+          <%= submit_tag "Actualizar estado", class: "btn" %>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+</div>

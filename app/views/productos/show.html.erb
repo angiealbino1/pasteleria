@@ -1,11 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<div class="detalle-producto">
 
-<%= render @producto %>
+  <div class="detalle-imagen">
+    <% if @producto.imagen.present? %>
+      <% if @producto.imagen.start_with?("http") %>
+        <img src="<%= @producto.imagen %>" alt="<%= @producto.nombre %>">
+      <% else %>
+        <%= image_tag "productos/#{@producto.imagen}", alt: @producto.nombre %>
+      <% end %>
+    <% else %>
+      <img src="https://via.placeholder.com/500x500?text=Postre" alt="Postre">
+    <% end %>
+  </div>
 
-<div>
-  <%= link_to "Edit this producto", edit_producto_path(@producto) %> |
-  <%= link_to "Back to productos", productos_path %>
+  <div class="detalle-info">
+    <h1><%= @producto.nombre %></h1>
 
-  <%= button_to "Destroy this producto", @producto, method: :delete %>
-	<button class="btn">Agregar al carrito</button>
+    <p class="precio">$<%= @producto.precio %></p>
+
+    <p>
+      <strong>Descripción:</strong><br>
+      <%= @producto.descripcion %>
+    </p>
+
+    <p>
+      <strong>Stock disponible:</strong>
+      <%= @producto.stock.to_i %>
+    </p>
+
+    <% if @producto.stock.to_i > 0 %>
+      <%= button_to "Agregar al carrito 🛒",
+          agregar_carrito_path(@producto.id),
+          method: :post,
+          class: "btn" %>
+    <% else %>
+      <p style="color:red; font-weight:bold;">Agotado</p>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Volver al catálogo", root_path, class: "btn" %>
+
+    <% if admin? %>
+      <%= link_to "Editar producto ✏️", edit_producto_path(@producto), class: "btn" %>
+    <% end %>
+  </div>
+
 </div>

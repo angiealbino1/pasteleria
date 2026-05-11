@@ -1,0 +1,25 @@
+<h1>Crear cuenta</h1>
+
+<%= form_with model: @usuario, url: registro_path do |f| %>
+  <p>
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </p>
+
+  <p>
+    <%= f.label :email, "Correo" %><br>
+    <%= f.email_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password, "Contraseña" %><br>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation, "Confirmar contraseña" %><br>
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  <%= f.submit "Registrarme", class: "btn" %>
+<% end %>

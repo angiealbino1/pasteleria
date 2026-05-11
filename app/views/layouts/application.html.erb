@@ -3,63 +3,67 @@
 <head>
   <title>Dulce Delicia</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
   <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
   <style>
+    :root {
+      --primary:#ff4d6d;
+      --bg:#f8f9fb;
+      --card:#ffffff;
+      --text:#333;
+    }
+
     body {
       margin:0;
-      font-family: 'Segoe UI', sans-serif;
-      background:#fff7f9;
+      font-family: 'Poppins', sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
 
     header {
-      background:#ff6f91;
-      padding:15px 30px;
-      color:white;
+      background: linear-gradient(135deg,#ff4d6d,#ff8fa3);
+      padding:15px 40px;
       display:flex;
       justify-content:space-between;
       align-items:center;
+      color:white;
     }
 
-    a {
+    nav a {
+      color:white;
+      margin-left:15px;
       text-decoration:none;
+      font-weight:bold;
+    }
+
+    nav span {
+      margin-left:15px;
+      font-weight:bold;
     }
 
     .btn {
-      background:#ff3b6b;
-      color:white;
-      padding:8px 12px;
-      border-radius:6px;
+      background:white;
+      color:#ff4d6d;
+      padding:6px 12px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-weight:bold;
     }
 
     .container {
-      padding:20px;
+      padding:30px;
     }
 
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
-
-    .card {
-      background:white;
-      border-radius:12px;
-      padding:15px;
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    footer {
       text-align:center;
-      transition:0.2s;
-    }
-
-    .card:hover {
-      transform:scale(1.03);
-    }
-
-    img {
-      width:100%;
-      height:160px;
-      object-fit:cover;
-      border-radius:10px;
+      padding:15px;
+      background:#ffd6dd;
+      margin-top:30px;
     }
   </style>
 </head>
@@ -68,15 +72,40 @@
 
 <header>
   <h2>🍰 Dulce Delicia</h2>
-  <div>
-    <%= link_to "Inicio", root_path, class:"btn" %>
-    <%= link_to "Nuevo", new_producto_path, class:"btn" %>
-  </div>
+
+  <nav>
+    <%= link_to "Inicio", root_path %>
+    <%= link_to "Carrito", carritos_path %>
+    <%= link_to "Mis pedidos", pedidos_path %>
+
+    <% if sesion_iniciada? %>
+
+      <% if admin? %>
+        <%= link_to "Panel Admin 👑", admin_pedidos_path %>
+      <% end %>
+
+      <span>Hola, <%= usuario_actual.nombre %></span>
+
+      <%= button_to "Cerrar sesión", logout_path,
+          method: :delete,
+          class: "btn" %>
+
+    <% else %>
+
+      <%= link_to "Iniciar sesión", login_path %>
+      <%= link_to "Registrarse", registro_path %>
+
+    <% end %>
+  </nav>
 </header>
 
 <div class="container">
   <%= yield %>
 </div>
+
+<footer>
+  © 2026 Dulce Delicia - Postres hechos con amor ❤️
+</footer>
 
 </body>
 </html>
