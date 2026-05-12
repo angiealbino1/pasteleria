@@ -1,21 +1,26 @@
 <div class="detalle-producto">
 
   <div class="detalle-imagen">
+
     <% if @producto.imagen.present? %>
-      <% if @producto.imagen.start_with?("http") %>
-        <img src="<%= @producto.imagen %>" alt="<%= @producto.nombre %>">
-      <% else %>
-        <%= image_tag "productos/#{@producto.imagen}", alt: @producto.nombre %>
-      <% end %>
+
+      <img src="/productos/<%= @producto.imagen %>">
+
     <% else %>
-      <img src="https://via.placeholder.com/500x500?text=Postre" alt="Postre">
+
+      <img src="https://via.placeholder.com/500x500">
+
     <% end %>
+
   </div>
 
   <div class="detalle-info">
+
     <h1><%= @producto.nombre %></h1>
 
-    <p class="precio">$<%= @producto.precio %></p>
+    <p class="precio-detalle">
+      $<%= @producto.precio %>
+    </p>
 
     <p>
       <strong>Descripción:</strong><br>
@@ -23,26 +28,15 @@
     </p>
 
     <p>
-      <strong>Stock disponible:</strong>
-      <%= @producto.stock.to_i %>
+      <strong>Stock:</strong>
+      <%= @producto.stock %>
     </p>
 
-    <% if @producto.stock.to_i > 0 %>
-      <%= button_to "Agregar al carrito 🛒",
-          agregar_carrito_path(@producto.id),
-          method: :post,
-          class: "btn" %>
-    <% else %>
-      <p style="color:red; font-weight:bold;">Agotado</p>
-    <% end %>
+    <%= button_to "Agregar al carrito 🛒",
+      agregar_carrito_path(@producto),
+      method: :post,
+      class:"btn" %>
 
-    <br>
-
-    <%= link_to "Volver al catálogo", root_path, class: "btn" %>
-
-    <% if admin? %>
-      <%= link_to "Editar producto ✏️", edit_producto_path(@producto), class: "btn" %>
-    <% end %>
   </div>
 
 </div>
