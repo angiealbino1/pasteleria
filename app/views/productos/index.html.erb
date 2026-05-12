@@ -18,7 +18,7 @@
         <% if producto.imagen.present? %>
 	  <img src="/productos/<%= producto.imagen %>" class="producto-img" alt="<%= producto.nombre %>">
 		<% else %>
-	  <img src="https://via.placeholder.com/400x400?text=Postre" class="producto-img" alt="Postre">
+	  <img src="https://via.placeholder.com/400x400" class="producto-img" 
 		<% end %>
 
         <div class="producto-info">

@@ -16,4 +16,46 @@ admin.rol = "admin"
 
 admin.save!
 
-puts "Admin creado o actualizado"
+productos = [
+  {
+    nombre: "Pay de limón",
+    precio: 45,
+    descripcion: "Pay de limón con base de galleta y relleno cremoso.",
+    imagen: "paydelimon.jpg",
+    stock: 10
+  },
+  {
+    nombre: "Pastel tres leches",
+    precio: 70,
+    descripcion: "Pastel suave bañado en tres leches con crema.",
+    imagen: "pasteltresleches.jpg",
+    stock: 10
+  },
+  {
+    nombre: "Jericalla",
+    precio: 35,
+    descripcion: "Postre tradicional cremoso con toque caramelizado.",
+    imagen: "jericalla.jpg",
+    stock: 10
+  },
+  {
+    nombre: "Fresas con crema",
+    precio: 50,
+    descripcion: "Fresas frescas con crema dulce.",
+    imagen: "fresas.jpg",
+    stock: 10
+  }
+]
+
+productos.each do |datos|
+  producto = Producto.find_or_initialize_by(nombre: datos[:nombre])
+
+  producto.precio = datos[:precio]
+  producto.descripcion = datos[:descripcion]
+  producto.imagen = datos[:imagen]
+  producto.stock = datos[:stock]
+
+  producto.save!
+end
+
+puts "Admin y productos creados correctamente"
