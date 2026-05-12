@@ -16,17 +16,10 @@
       <div class="producto-card">
 
         <% if producto.imagen.present? %>
-
-          <%= image_tag "productos/#{producto.imagen}",
-          class:"producto-img" %>
-
-        <% else %>
-
-          <img
-          src="https://via.placeholder.com/400x400"
-          class="producto-img">
-
-        <% end %>
+	  <img src="/productos/<%= producto.imagen %>" class="producto-img" alt="<%= producto.nombre %>">
+		<% else %>
+	  <img src="https://via.placeholder.com/400x400?text=Postre" class="producto-img" alt="Postre">
+		<% end %>
 
         <div class="producto-info">
 
