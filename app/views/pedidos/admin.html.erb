@@ -1,45 +1,86 @@
-<h1> Panel Admin - Pedidos</h1>
+<h1 class="titulo">Panel de Administración</h1>
 
-<div class="productos-grid">
-  <% @pedidos.each do |pedido| %>
-    <div class="producto-card">
-      <div class="producto-info">
+<% if @pedidos.any? %>
 
-        <h3>Pedido #<%= pedido.id %></h3>
+  <div class="productos-grid">
 
-        <p>
-          <strong>Cliente:</strong>
-          <%= pedido.usuario.nombre %>
-        </p>
+    <% @pedidos.each do |pedido| %>
 
-        <p>
-          <strong>Total:</strong>
-          $<%= pedido.total %>
-        </p>
+      <div class="producto-card">
 
-        <p>
-          <strong>Estado actual:</strong>
+        <div class="producto-info">
+
+          <h3>Pedido #<%= pedido.id %></h3>
+
+          <p>
+            <strong>Cliente:</strong><br>
+            <%= pedido.usuario.nombre %>
+          </p>
+
+          <p class="precio">
+            $<%= pedido.total %>
+          </p>
+
+          <p>
+            <strong>Estado actual:</strong>
+          </p>
+
           <span class="estado">
             <%= pedido.estado %>
           </span>
-        </p>
-
-        <%= form_with url: actualizar_pedido_path(pedido), method: :patch do %>
-          <select name="estado">
-            <option value="Pendiente">Pendiente</option>
-            <option value="En preparación">En preparación</option>
-            <option value="Listo">Listo</option>
-            <option value="En camino">En camino</option>
-            <option value="Entregado">Entregado</option>
-            <option value="Cancelado">Cancelado</option>
-          </select>
 
           <br><br>
 
-          <%= submit_tag "Actualizar estado", class: "btn" %>
-        <% end %>
+          <%= form_with url: actualizar_pedido_path(pedido),
+              method: :patch do %>
+
+            <select name="estado" class="select-estado">
+
+              <option value="Pendiente">
+                Pendiente
+              </option>
+
+              <option value="En preparación">
+                En preparación
+              </option>
+
+              <option value="Listo">
+                Listo
+              </option>
+
+              <option value="En camino">
+                En camino
+              </option>
+
+              <option value="Entregado">
+                Entregado
+              </option>
+
+              <option value="Cancelado">
+                Cancelado
+              </option>
+
+            </select>
+
+            <br><br>
+
+            <%= submit_tag "Actualizar",
+                class: "btn" %>
+
+          <% end %>
+
+        </div>
 
       </div>
-    </div>
-  <% end %>
-</div>
+
+    <% end %>
+
+  </div>
+
+<% else %>
+
+  <div class="form-card">
+    <h2>No hay pedidos todavía 📦</h2>
+  </div>
+
+<% end %>

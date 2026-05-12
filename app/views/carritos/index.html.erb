@@ -1,20 +1,28 @@
-<h1>🛒 Tu carrito</h1>
+<h1 class="titulo">🛒 Carrito de compras</h1>
 
 <% if @carritos.any? %>
-  <% @carritos.each do |item| %>
-    <div class="card">
-      <h3><%= item.producto.nombre %></h3>
-      <p>Precio: $<%= item.producto.precio %></p>
-      <p>Cantidad: <%= item.cantidad %></p>
-      <p class="price">Subtotal: $<%= item.producto.precio * item.cantidad %></p>
+  <div class="productos-grid">
+    <% @carritos.each do |item| %>
+      <div class="producto-card">
+        <div class="producto-info">
+          <h3><%= item.producto.nombre %></h3>
+          <p>Precio: $<%= item.producto.precio %></p>
+          <p>Cantidad: <%= item.cantidad %></p>
+          <p class="precio">Subtotal: $<%= item.producto.precio * item.cantidad %></p>
 
-      <%= button_to "Eliminar ❌", eliminar_carrito_path(item.id), method: :delete, class: "btn" %>
-    </div>
-  <% end %>
+          <%= button_to "Eliminar ❌", eliminar_carrito_path(item.id), method: :delete, class: "btn" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-  <h2>Total: $<%= @total %></h2>
-
-  <%= button_to "Comprar 💳", checkout_path, method: :post, class: "btn" %>
+  <div class="form-card">
+    <h2>Total: $<%= @total %></h2>
+    <%= button_to "Comprar 💳", checkout_path, method: :post, class: "btn" %>
+  </div>
 <% else %>
-  <p>Tu carrito está vacío 🧺</p>
+  <div class="form-card">
+    <h2>Tu carrito está vacío </h2>
+    <%= link_to "Ver postres", root_path, class: "btn" %>
+  </div>
 <% end %>

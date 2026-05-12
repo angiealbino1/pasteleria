@@ -1,25 +1,17 @@
-<h1>Crear cuenta</h1>
 
-<%= form_with model: @usuario, url: registro_path do |f| %>
-  <p>
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </p>
+<div class="form-card">
+  <h1>Crear cuenta</h1>
 
-  <p>
-    <%= f.label :email, "Correo" %><br>
-    <%= f.email_field :email %>
-  </p>
+  <%= form_with model: @usuario, url: registro_path do |f| %>
+    <%= f.text_field :nombre, placeholder: "Nombre completo" %>
 
-  <p>
-    <%= f.label :password, "Contraseña" %><br>
-    <%= f.password_field :password %>
-  </p>
+    <%= f.email_field :email, placeholder: "Correo electrónico" %>
 
-  <p>
-    <%= f.label :password_confirmation, "Confirmar contraseña" %><br>
-    <%= f.password_field :password_confirmation %>
-  </p>
+    <%= f.password_field :password, placeholder: "Contraseña" %>
 
-  <%= f.submit "Registrarme", class: "btn" %>
-<% end %>
+    <%= f.password_field :password_confirmation, placeholder: "Confirmar contraseña" %>
+
+    <%= f.submit "Registrarme", class: "btn" %>
+  <% end %>
+</div>
+

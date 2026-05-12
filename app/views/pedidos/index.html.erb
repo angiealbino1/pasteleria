@@ -1,25 +1,21 @@
-<h1>📦 Mis pedidos</h1>
+<h1 class="titulo">📦 Mis pedidos</h1>
 
-<div class="productos-grid">
-  <% @pedidos.each do |pedido| %>
-    <div class="producto-card">
-      <div class="producto-info">
-
-        <h3>Pedido #<%= pedido.id %></h3>
-
-        <p>
-          <strong>Total:</strong>
-          $<%= pedido.total %>
-        </p>
-
-        <p>
-          <strong>Estado:</strong>
-          <span class="estado">
-            <%= pedido.estado %>
-          </span>
-        </p>
-
+<% if @pedidos.any? %>
+  <div class="productos-grid">
+    <% @pedidos.each do |pedido| %>
+      <div class="producto-card">
+        <div class="producto-info">
+          <h3>Pedido #<%= pedido.id %></h3>
+          <p class="precio">$<%= pedido.total %></p>
+          <p><strong>Estado:</strong></p>
+          <span class="estado"><%= pedido.estado %></span>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="form-card">
+    <h2>Aún no tienes pedidos</h2>
+    <%= link_to "Comprar postres", root_path, class: "btn" %>
+  </div>
+<% end %>

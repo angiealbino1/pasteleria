@@ -6,105 +6,51 @@
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-
-  <style>
-    :root {
-      --primary:#ff4d6d;
-      --bg:#f8f9fb;
-      --card:#ffffff;
-      --text:#333;
-    }
-
-    body {
-      margin:0;
-      font-family: 'Poppins', sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    header {
-      background: linear-gradient(135deg,#ff4d6d,#ff8fa3);
-      padding:15px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      color:white;
-    }
-
-    nav a {
-      color:white;
-      margin-left:15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    nav span {
-      margin-left:15px;
-      font-weight:bold;
-    }
-
-    .btn {
-      background:white;
-      color:#ff4d6d;
-      padding:6px 12px;
-      border-radius:8px;
-      border:none;
-      cursor:pointer;
-      font-weight:bold;
-    }
-
-    .container {
-      padding:30px;
-    }
-
-    footer {
-      text-align:center;
-      padding:15px;
-      background:#ffd6dd;
-      margin-top:30px;
-    }
-  </style>
 </head>
 
 <body>
 
-<header>
-  <h2>🍰 Dulce Delicia</h2>
+<header class="navbar">
+  <div class="logo">
+    <%= link_to "🍰 Dulce Delicia", root_path %>
+  </div>
 
-  <nav>
+  <nav class="menu">
     <%= link_to "Inicio", root_path %>
     <%= link_to "Carrito", carritos_path %>
     <%= link_to "Mis pedidos", pedidos_path %>
 
     <% if sesion_iniciada? %>
-
       <% if admin? %>
-        <%= link_to "Panel Admin 👑", admin_pedidos_path %>
+        <%= link_to "Panel Admin", admin_pedidos_path %>
+        <%= link_to "Nuevo producto", new_producto_path %>
       <% end %>
 
       <span>Hola, <%= usuario_actual.nombre %></span>
 
-      <%= button_to "Cerrar sesión", logout_path,
-          method: :delete,
-          class: "btn" %>
-
+      <%= button_to "Cerrar sesión", logout_path, method: :delete, class: "btn btn-light" %>
     <% else %>
-
       <%= link_to "Iniciar sesión", login_path %>
       <%= link_to "Registrarse", registro_path %>
-
     <% end %>
   </nav>
 </header>
 
-<div class="container">
-  <%= yield %>
-</div>
+<main class="main-container">
+  <% if notice %>
+    <div class="notice"><%= notice %></div>
+  <% end %>
 
-<footer>
-  © 2026 Dulce Delicia - Postres hechos con amor ❤️
+  <% if alert %>
+    <div class="alert"><%= alert %></div>
+  <% end %>
+
+  <%= yield %>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Dulce Delicia - Postres hechos con amor 💖</p>
 </footer>
 
 </body>
